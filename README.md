@@ -11,6 +11,27 @@ Implementation of the ospa barycenter[1](https://ieeexplore.ieee.org/document/72
 
 Additionally two initialization procedures are added: Mean-initialization and iterative-initialization. 
 
+Usage: 
+
+`using ospa`
+
+
 Examples:
 
-Example Data can be loaded
+Example Data can be loaded:
+
+`X,Y = ospa.generateData()`
+
+Using different initialization methods:
+
+Mean initialization method:
+
+`ospa_barycenter(X, 0.05, missing, :binned)`
+
+Iterative initialiation methods:
+
+`ospa_barycenter(X, 0.05, missing, :iterative)`
+
+Standard initialization (initialize cluster a random measurement):
+
+`ospa_barycenter(X, 0.05, missing, :standard)`
