@@ -1,14 +1,15 @@
 # kmeans implementation for the ospa distance.
 
 
-function ospa_kmeans(measurements::Vector{Pointcloud}, 
+function ospa_kmeans(measurements::Vector{Pointcloud},
                      c::S
-                     ; 
-                     nclusters::Integer=2, 
-                     niter::Integer=100, 
-                     eps::Float64=0.05, 
+                     ;
+                     nclusters::Integer=2,
+                     niter::Integer=100,
+                     eps::Float64=0.05,
                      verbose=false
                     ) where {S <: Real}
+    # This has to go into the for loop
     clusters = init_barycenter_clusters(measurements, nclusters)
     costs = fill(Inf, nclusters)
     max_barycenter_rounds = 1
@@ -18,11 +19,12 @@ function ospa_kmeans(measurements::Vector{Pointcloud},
             println("Iteration: $(i)")
         end
         dmat = ospa_dist(clusters, measurements, c)
-        indices = map(x -> indmin(dmat[:,x]), 1:size(dmat)[2])
+        indices = map(x -> findmin(dmat[:,x])[2], 1:size(dmat)[2])
         for j =1:nclusters
             inds = indices.==j
+            # this should be provided by the user or automatically derived
             weights = fill(1/sum(inds), sum(inds))
-            clusters[j], costs[j] = ospa_barycenter(measurements[inds], weights, c, max_barycenter_rounds, eps)
+            clusters[j], costs[j] = ospa_barycenter(measurements[inds], c, weights, :binned)
             if verbose
                 println("Cost $(j): $(costs[j])")
             end
@@ -36,12 +38,6 @@ function ospa_kmeans(measurements::Vector{Pointcloud},
     clusters, costs
 end
 
-# This is only for an example. Do something besser here.
-function init_barycenter_clusters(measurements::Vector{Pointcloud}, 
-                                  nclusters::Integer
-                                 )
-    init_clusters = Vector{Pointcloud}(nclusters)
-    init_clusters[1] = measurements[1]
-    init_clusters[end] = measurements[end]
-    init_clusters
+function init_barycenter_clusters(datapoints::Vector{Pointcloud}, nclusters::Integer)
+    datapoints[[1,end]]
 end
