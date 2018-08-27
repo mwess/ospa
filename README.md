@@ -7,7 +7,7 @@
 [![codecov.io](http://codecov.io/github/mwess/ospa.jl/coverage.svg?branch=master)](http://codecov.io/github/mwess/ospa.jl?branch=master)
 
 
-Implementation of the ospa barycenter[1](https://ieeexplore.ieee.org/document/7266717/).
+Implementation of the ospa barycenter[[1]](https://ieeexplore.ieee.org/document/7266717/).
 
 Additionally two initialization procedures are added: Mean-initialization and iterative-initialization. 
 
