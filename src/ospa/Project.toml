@@ -1,0 +1,6 @@
+authors = ["Maxi Wess <maxwess@googlemail.com>"]
+name = "ospa"
+uuid = "04832352-aa46-11e8-384b-239cca14b786"
+version = "0.1.0"
+
+[deps]
